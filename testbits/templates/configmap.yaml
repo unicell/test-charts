@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: acl-config
+  annotations:
+    "helm.sh/hook": pre-install
+data:
+  ferm.conf: |-
+    table filter {
+        chain INPUT {
+            policy ACCEPT;
+
+            # example blacklist config
+            # saddr (1.2.3.4 192.168.169.0/24) proto tcp daddr 172.20.2.110/32 dport 80 DROP;
+        }
+    }
